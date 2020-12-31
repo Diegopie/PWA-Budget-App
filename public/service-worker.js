@@ -1,16 +1,17 @@
-
-
 // * Global Variables
-const cacheFileName = "budget-cache-v1.0";
-const cacheDataName = "data-v1.0"
+const cacheFileName = "budget-cache-v1.5";
+const cachedDataFile = "data-v1.1"
 const filesToCache = [
     "/",
     "/assets/styles.css",
-    "/assets/index.js",
+    "/assets/js/index.js",    
+    "/assets/js/db.js",    
     "/assets/manifest.webmanifest",
     "/assets/icons/icon-192x192.png",
     "/assets/icons/icon-512x512.png",
   ];
+
+  console.log(filesToCache);
 
 
 // * Event Listeners
@@ -37,7 +38,7 @@ self.addEventListener('activate', (e) => {
             .then(keyList => {
                 return Promise.all(
                     keyList.map(key => {
-                        if (key !== cacheFileName && key !== cacheDataName) {
+                        if (key !== cacheFileName && key !== cachedDataFile) {
                             console.log("Deleting Key: ", key);
                             return caches.delete(key);
                         }
@@ -48,3 +49,39 @@ self.addEventListener('activate', (e) => {
     );
     self.clients.claim();
 })
+
+
+// ** On All Fetch Request, Intercept and Serve Through SW; If Offline, Serve Cached offline.html Page
+self.addEventListener('fetch', (e) => {
+    console.log("Fetch Listener Intercept: ", e.request);
+    // Handle API Reqs
+    if (e.request.url.includes("/api")) {
+        return e.respondWith(
+            caches
+                .open(cachedDataFile)
+                .then(dataCache => {
+                   return fetch(e.request)
+                    .then(res => {
+                        if (res.status === 200) {
+                            dataCache.put(e.request.url, res.clone());
+                        }
+                        return res;
+                    })
+                    .catch(err => {
+                        console.log("On SW Fetch API Intercept, response error: ", err);
+                        return dataCache.match(e.request);
+                    })
+                })
+                .catch(err => console.log("On SW API Open Cache Error: ", err))
+        )
+    }
+    // Handle All Other Reqs
+    e.respondWith(
+        caches
+            .match(e.request)
+            .then(res => {
+                return res || fetch(e.request)                
+            })
+            .catch(err => console.log("Handle other reqs err: ", err))                
+    )
+});
