@@ -11,13 +11,12 @@ const filesToCache = [
     "/assets/icons/icon-512x512.png",
   ];
 
-  console.log(filesToCache);
 
 
 // * Event Listeners
 // ** On SW Install, Catch Files for Offline Use
 self.addEventListener('install', (e) => {
-    console.log("Hit sw install");
+    // console.log("Hit sw install");
     e.waitUntil(
         caches
             .open(cacheFileName)
