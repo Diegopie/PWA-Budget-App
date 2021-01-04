@@ -52,7 +52,7 @@ self.addEventListener('activate', (e) => {
 
 // ** On All Fetch Request, Intercept and Serve Through SW; If Offline, Serve Cached offline.html Page
 self.addEventListener('fetch', (e) => {
-    console.log("Fetch Listener Intercept: ", e.request);
+    // console.log("Fetch Listener Intercept: ", e.request);
     // Handle API Reqs
     if (e.request.url.includes("/api")) {
         return e.respondWith(
