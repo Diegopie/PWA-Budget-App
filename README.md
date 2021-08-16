@@ -1,6 +1,6 @@
 # PWA-Budget-App
 
-The potential of PWAs is what inspired me to attend school for web development. This application is a simple budget tracker to demonstrate offline web app functionality.
+The potential of PWAs is what inspired me to attend school for web development. This application is a simple budget tracker to demonstrate offline PWA functionality.
 
 ## Objective
 
