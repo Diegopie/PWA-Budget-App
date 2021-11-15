@@ -8,7 +8,7 @@ The potential of PWAs is what inspired me to attend school for web development. 
 - Write API routes to access a mongo database
 - Configure a service worker and web manifest to utilize an offline and installable PWA
 
-![PWA Budget Tracker](./public/assets/readme.png)
+<img src="./public/assets/readme.png" widht="580px"/>
 
 [PWA Budget Tracker](https://budget-pwaa.herokuapp.com/) is hosted on Heroku.
 
