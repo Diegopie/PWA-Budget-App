@@ -30,6 +30,4 @@ This application was a lot of fun to work on. Managing the data while offline an
 | [jquery](https://jquery.com/) | [light-server](https://github.com/johnpapa/lite-server#readme) |[mongoose](https://mongoosejs.com/) |
 | [morgan](https://github.com/expressjs/morgan#readme)
 
-This application relies on FontAwesome Express, and Mongoose
-
 This application was authored by [Diego Hernandez](https://github.com/Diegopie)
